@@ -1,6 +1,6 @@
 # hexajobs.dev CLI
 
-Backend Peran 1 dan TUI Peran 2 terintegrasi. Memerlukan **Go 1.24+** untuk dependensi Charmbracelet. Package `core`, `engine`, `scraper`, dan `models` tetap menggunakan standard library; antarmuka dan aksi pengguna berada di `ui`, `security`, dan `client`.
+Backend Peran 1 dan TUI Peran 2 terintegrasi. Memerlukan **Go 1.24+** untuk dependensi Charmbracelet (lihat [panduan penyiapan Go](docs/GO-SETUP.md)). Package `core`, `engine`, `scraper`, dan `models` tetap menggunakan standard library; antarmuka dan aksi pengguna berada di `ui`, `security`, dan `client`.
 
 ```sh
 go run ./cmd/hexajobs
@@ -8,20 +8,56 @@ go run ./cmd/hexajobs --demo
 go build -o bin/hexajobs ./cmd/hexajobs
 ```
 
-## Build Linux (v1.1)
+## Build Linux (v1.1.1)
 
 ```sh
 make build-linux-amd64   # -> bin/hexajobs-linux-amd64
 make build-linux-arm64   # -> bin/hexajobs-linux-arm64 (cross-compile)
 make checksum             # -> bin/*.sha256
-make deb                  # -> dist/hexajobs-cli_v1.1_amd64.deb
+make deb                  # -> dist/hexajobs-cli_v1.1.1_amd64.deb
 ./scripts/install-linux.sh [amd64|arm64] [--system]
 ```
 
-Versi rilis diinject via ldflags (`-X .../views.AppVersion=v1.1`, default
-`v1.0` saat build manual). Cek dengan `hexajobs --version`. Paket `.deb`
+Versi rilis diinject via ldflags (`-X .../views.AppVersion=v1.1.1`, default
+`v1.1.1` saat build manual). Cek dengan `hexajobs --version`. Paket `.deb`
 menginstal ke `/usr/bin/hexajobs`; script instal memakai `~/.local/bin`
 kecuali flag `--system`.
+
+## Instalasi via npm (Linux x64/arm64, Node 18+)
+
+```sh
+npm install -g hexajobs-cli --allow-scripts=hexajobs-cli
+hexajobs --version   # harusnya: hexajobs.dev v1.1.1
+hexajobs --demo
+```
+
+Flag `--allow-scripts` wajib karena npm 10+ memblokir postinstall secara
+default; tanpanya binary tidak diunduh. Postinstall mengunduh binary Linux
+dari GitHub Releases (`v1.1.1`), atau build dari source bila Go + Make
+tersedia. Selama repo masih private, sediakan token baca repo saat instal:
+
+```sh
+GITHUB_TOKEN=<token> npm install -g hexajobs-cli --allow-scripts=hexajobs-cli
+```
+
+(Repo publik tidak butuh token.) Tanpa registry (belum publish), instal
+dari tarball lokal:
+
+```sh
+npm pack               # -> hexajobs-cli-1.1.1.tgz
+npm install -g ./hexajobs-cli-1.1.1.tgz --allow-scripts=hexajobs-cli
+```
+
+Catatan: unduhan butuh GitHub Release `v1.1.1` yang berisi asset
+`hexajobs-linux-amd64` / `hexajobs-linux-arm64`. Selama release belum ada,
+arahkan wrapper ke binary hasil `make`:
+
+```sh
+HEXAJOBS_BIN=$PWD/bin/hexajobs-linux-amd64 hexajobs --demo
+```
+
+Variabel bantu: `HEXAJOBS_BIN=/path/ke/binary` (paksa binary tertentu),
+`HEXAJOBS_SKIP_DOWNLOAD=1` (lewati unduhan postinstall, mis. lingkungan offline).
 
 Windows: gunakan `go build -o bin/hexajobs.exe ./cmd/hexajobs`. Mode `--demo` memakai contoh bertanda DEMO tanpa request API. `--config <path>` memilih konfigurasi engine; `--version` menampilkan versi. Lihat [panduan TUI](docs/TUI.md) untuk navigasi, keamanan, preferensi, dan riwayat.
 

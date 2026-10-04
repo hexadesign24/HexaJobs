@@ -1,4 +1,4 @@
-VERSION ?= v1.1
+VERSION ?= v1.1.1
 DEBVER = $(shell echo $(VERSION) | sed 's/^v//')
 MODULE := hexajobs.dev/hexajobs-cli
 LDFLAGS := -s -w -X $(MODULE)/internal/ui/views.AppVersion=$(VERSION)

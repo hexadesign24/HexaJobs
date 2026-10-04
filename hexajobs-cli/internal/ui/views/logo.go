@@ -6,8 +6,8 @@ import (
 
 // AppVersion is the single source of truth for the release version.
 // Override at build time with:
-//   -ldflags "-X hexajobs.dev/hexajobs-cli/internal/ui/views.AppVersion=v1.1"
-var AppVersion = "v1.1"
+//   -ldflags "-X hexajobs.dev/hexajobs-cli/internal/ui/views.AppVersion=v1.1.1"
+var AppVersion = "v1.1.1"
 
 // LogoBlocky is pure ASCII (32-126 only) so it survives terminal rendering
 // without going through CleanText (which collapses whitespace).

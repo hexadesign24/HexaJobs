@@ -1,6 +1,6 @@
 {
   "name": "hexajobs-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "hexajobs.dev CLI - job aggregation engine with terminal UI",
   "bin": {
     "hexajobs": "./bin/hexajobs.js"

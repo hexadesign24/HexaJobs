@@ -42,7 +42,15 @@ else
   install -m 0755 "$SRC" "$DEST"
   case ":$PATH:" in
     *":$HOME/.local/bin:"*) ;;
-    *) echo "note: add \$HOME/.local/bin to PATH to run 'hexajobs'" ;;
+    *)
+      # Complete the PATH automatically (bash only): idempotent, one line.
+      if grep -qsF '$HOME/.local/bin' "$HOME/.bashrc" 2>/dev/null; then
+        echo "note: \$HOME/.local/bin is already in ~/.bashrc - open a new terminal or run: source ~/.bashrc"
+      else
+        printf '\n# added by hexajobs installer\nexport PATH="$HOME/.local/bin:$PATH"\n' >> "$HOME/.bashrc"
+        echo "added \$HOME/.local/bin to PATH in ~/.bashrc - open a new terminal or run: source ~/.bashrc"
+      fi
+      ;;
   esac
 fi
 

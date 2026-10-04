@@ -92,8 +92,10 @@ function download(url, dest, redirects = 5, accept) {
 }
 
 async function downloadReleaseBinary(tag, name, dest) {
-  // Private repos need the API + token; public repos also work anonymously
-  // via the classic download URL. Try API first when a token is present.
+  // Try the public URL first (works for public repos, no token needed).
+  // With GITHUB_TOKEN set, fall back to the API so private repos and
+  // API rate-limit cases keep working; auth headers are recomputed per
+  // redirect hop and never forwarded to signed download URLs.
   if (process.env.GITHUB_TOKEN) {
     const id = await releaseAssetId(tag, name);
     await download(

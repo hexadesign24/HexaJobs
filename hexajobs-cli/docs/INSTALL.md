@@ -1,8 +1,9 @@
-# Instalasi HexaJobs (Linux)
+# Instalasi HexaJobs (Linux & Windows)
 
-Jalur yang disarankan: **binary rilis**. Semua perintah di bawah dijalankan
-dari direktori `hexajobs-cli/` kecuali dinyatakan lain. Butuh terminal
-interaktif untuk TUI; `--version` bisa di mana saja.
+Jalur yang disarankan: **binary rilis**. Perintah Linux di bawah dijalankan
+dari direktori `hexajobs-cli/` kecuali dinyatakan lain; perintah Windows
+dijalankan dari direktori yang sama di **PowerShell**. Butuh terminal
+interaktif untuk TUI (min 80×24); `--version` bisa di mana saja.
 
 ## Prasyarat
 
@@ -66,10 +67,84 @@ go build -o bin/hexajobs ./cmd/hexajobs
 
 ## Jalur E — Windows (tanpa Go, tanpa skrip)
 
-Panduan Windows 5 langkah + troubleshooting diadakan di satu sumber:
-[INSTALL.md](../INSTALL.md#windows-amd64--instalasi-manual-5-langkah)
-(manual, tanpa skrip `.ps1` — sesuai keputusan proyek).
+> Berlaku untuk Windows 10/11 64-bit (AMD64). Semua perintah di bawah
+> dijalankan manual di **PowerShell** dari direktori `hexajobs-cli/`.
+> Instalasi dilakukan manual — tanpa skrip `*.ps1`/`*.bat`/`*.cmd`
+> (sesuai keputusan proyek).
+
+### E.1 — Dapatkan biner `hexajobs.exe`
+
+Pilih salah satu:
+
+**A. Dari rilis (tanpa Go):** unduh dua berkas rilis ke satu folder
+unduhan, misalnya `Downloads\hexajobs\`:
+
+- `hexajobs.exe`
+- `hexajobs.exe.sha256`
+
+**B. Build dari source (perlu Go 1.24+):**
+
+```powershell
+go version
+make build-windows-amd64
+dir dist
+```
+
+Hasil yang diharapkan:
+
+- `dist\hexajobs.exe`
+- `dist\hexajobs.exe.sha256`
+
+### E.2 — Verifikasi checksum SHA-256
+
+Bandingkan hash lokal dengan isi `.sha256` (sesuaikan path bila dari
+folder unduhan):
+
+```powershell
+Get-FileHash .\dist\hexajobs.exe -Algorithm SHA256
+Get-Content .\dist\hexajobs.exe.sha256
+```
+
+Kedua nilai hash **harus sama persis**. Alternatif bawaan Windows
+tanpa PowerShell:
+
+```cmd
+certutil -hashfile dist\hexajobs.exe SHA256
+```
+
+Jika berbeda: **jangan lanjutkan** — unduh ulang / build ulang dan
+pastikan file tidak corrupt atau tertukar. Panduan lengkap 5 langkah +
+troubleshooting: [INSTALL.md](../INSTALL.md#windows-amd64--instalasi-manual-5-langkah).
 Checklist verifikasi: [CHECKLIST_WINDOWS.md](../CHECKLIST_WINDOWS.md).
+
+### E.3 — Instal ke folder permanen + PATH pengguna
+
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\bin"
+Move-Item -Force .\dist\hexajobs.exe "$env:USERPROFILE\bin\hexajobs.exe"
+Unblock-File "$env:USERPROFILE\bin\hexajobs.exe"
+dir "$env:USERPROFILE\bin\hexajobs.exe"
+```
+
+Tambahkan folder instalasi ke `PATH` pengguna **satu kali secara manual**:
+Settings → System → About → Advanced system settings →
+Environment Variables → User variables → `Path` → New →
+`C:\Users\<NamaAnda>\bin` → OK di semua dialog → **tutup dan buka
+kembali** PowerShell / Windows Terminal agar `PATH` baru terbaca.
+Cek: `$env:Path -split ";"` lalu `Get-Command hexajobs`.
+
+### E.4 — Verifikasi instalasi
+
+```powershell
+hexajobs.exe --version
+hexajobs.exe --demo
+```
+
+Hasil yang diharapkan: `--version` mencetak versi (mis.
+`hexajobs.dev v1.1.1`); `--demo` membuka TUI contoh offline bertanda
+DEMO (keluar dengan `Ctrl+C` atau `q` dari Dashboard). Butuh terminal
+interaktif (Windows Terminal, min 80×24; di bawah 50×16 hanya tampil
+permintaan resize).
 
 ## Konfigurasi pertama (mode live)
 

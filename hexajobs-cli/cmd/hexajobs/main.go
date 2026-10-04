@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"runtime"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"hexajobs.dev/hexajobs-cli/internal/core"
@@ -31,11 +32,14 @@ func run() error {
 	}
 	// The TUI needs a real terminal. Without one Bubble Tea fails with
 	// "could not open a new TTY", so report it in plain language instead.
-	// (/dev/null is a char device too, so probe /dev/tty directly.)
-	if tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0); err != nil {
-		return errors.New("need an interactive terminal (no /dev/tty): run inside a terminal emulator, not via pipe/redirect; --version works anywhere")
-	} else {
-		_ = tty.Close()
+	// (/dev/tty only exists on Unix; on Windows rely on Bubble Tea's own
+	// console handling instead of probing a Unix-only device node.)
+	if runtime.GOOS != "windows" {
+		if tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0); err != nil {
+			return errors.New("need an interactive terminal (no /dev/tty): run inside a terminal emulator, not via pipe/redirect; --version works anywhere")
+		} else {
+			_ = tty.Close()
+		}
 	}
 	var engine models.EngineContract
 	options := []ui.Option{ui.WithSponsorURL(os.Getenv("HEXAJOBS_SPONSOR_URL"))}

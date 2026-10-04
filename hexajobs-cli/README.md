@@ -1,5 +1,7 @@
 # hexajobs.dev CLI — v1.1.1
 
+[![CI](https://github.com/hexadesign24/HexaJobs/actions/workflows/ci.yml/badge.svg)](https://github.com/hexadesign24/HexaJobs/actions/workflows/ci.yml)
+
 Agregator lowongan kerja bertenaga TUI: RemoteOK, Remotive, Jobicy, Adzuna,
 Hacker News Who's Hiring, forum RSS, GitHub bounty, dan feed Web3 — plus
 ScamShield, skor kecocokan skill, dan market pulse. Linux (amd64/arm64) dan

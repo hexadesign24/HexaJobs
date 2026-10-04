@@ -1,0 +1,10 @@
+Package: hexajobs-cli
+Version: 1.1
+Section: utils
+Priority: optional
+Architecture: amd64
+Maintainer: HexaJobs <maintainer@example.com>
+Description: hexajobs.dev CLI - job aggregation engine with terminal UI
+ Backend job engine (RemoteOK, Remotive, Jobicy, Adzuna, Hacker News,
+ forum RSS, GitHub bounties, Web3 feeds) with a Bubble Tea terminal UI,
+ ScamShield link protection and local pitch drafts.

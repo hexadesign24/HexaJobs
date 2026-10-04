@@ -8,6 +8,21 @@ go run ./cmd/hexajobs --demo
 go build -o bin/hexajobs ./cmd/hexajobs
 ```
 
+## Build Linux (v1.1)
+
+```sh
+make build-linux-amd64   # -> bin/hexajobs-linux-amd64
+make build-linux-arm64   # -> bin/hexajobs-linux-arm64 (cross-compile)
+make checksum             # -> bin/*.sha256
+make deb                  # -> dist/hexajobs-cli_v1.1_amd64.deb
+./scripts/install-linux.sh [amd64|arm64] [--system]
+```
+
+Versi rilis diinject via ldflags (`-X .../views.AppVersion=v1.1`, default
+`v1.0` saat build manual). Cek dengan `hexajobs --version`. Paket `.deb`
+menginstal ke `/usr/bin/hexajobs`; script instal memakai `~/.local/bin`
+kecuali flag `--system`.
+
 Windows: gunakan `go build -o bin/hexajobs.exe ./cmd/hexajobs`. Mode `--demo` memakai contoh bertanda DEMO tanpa request API. `--config <path>` memilih konfigurasi engine; `--version` menampilkan versi. Lihat [panduan TUI](docs/TUI.md) untuk navigasi, keamanan, preferensi, dan riwayat.
 
 ## Integrasi dengan Peran 2

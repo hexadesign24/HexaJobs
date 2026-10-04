@@ -9,6 +9,7 @@ import (
 	"hexajobs.dev/hexajobs-cli/internal/core"
 	"hexajobs.dev/hexajobs-cli/internal/models"
 	"hexajobs.dev/hexajobs-cli/internal/ui"
+	"hexajobs.dev/hexajobs-cli/internal/ui/views"
 )
 
 func main() {
@@ -24,7 +25,7 @@ func run() error {
 	config := flag.String("config", "", "engine configuration path (default ~/.config/hexajobs/config.json)")
 	flag.Parse()
 	if *version {
-		fmt.Println("hexajobs.dev v1.0")
+		fmt.Println("hexajobs.dev " + views.AppVersion)
 		return nil
 	}
 	var engine models.EngineContract

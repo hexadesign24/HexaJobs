@@ -1,5 +1,9 @@
 *.test
+*.tgz
 coverage.out
 config.local.json
-bin/
+bin/*
+!bin/hexajobs.js
+binaries/
 dist/
+node_modules/

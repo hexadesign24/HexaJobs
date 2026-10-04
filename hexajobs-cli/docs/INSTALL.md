@@ -64,6 +64,13 @@ go run ./cmd/hexajobs         # live
 go build -o bin/hexajobs ./cmd/hexajobs
 ```
 
+## Jalur E — Windows (tanpa Go, tanpa skrip)
+
+Panduan Windows 5 langkah + troubleshooting diadakan di satu sumber:
+[INSTALL.md](../INSTALL.md#windows-amd64--instalasi-manual-5-langkah)
+(manual, tanpa skrip `.ps1` — sesuai keputusan proyek).
+Checklist verifikasi: [CHECKLIST_WINDOWS.md](../CHECKLIST_WINDOWS.md).
+
 ## Konfigurasi pertama (mode live)
 
 ```sh

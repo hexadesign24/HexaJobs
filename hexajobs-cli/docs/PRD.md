@@ -34,5 +34,17 @@ Disusun dari perjalanan build 4 Okt 2026. Acuan versi, bukan chat log.
 ## 5. Backlog (belum diputuskan)
 
 - Core/API V2 aditif (`FetchJobsV2`, `HealthCheck`, `PulseV2`, `Purge`): minor 1.2.0 vs major 2.0.
-- Release engineering: CI Actions, aset Windows, publik + `npm publish`.
+- Release engineering: CI Actions, publik + `npm publish`.
 - Fitur: export json/csv/md, filter-sort lanjutan, notifikasi/scheduler.
+
+## 6. Dukungan Windows (pengguna eksternal nyata, ponytail)
+
+- Scope: asset `.exe` + panduan manual 5 langkah + checklist konfirmasi.
+  Tanpa Go, tanpa skrip, tanpa ubah ExecutionPolicy. `quickstart.ps1`
+  hanya bila pengguna bilang manual merepotkan.
+- Status kode: `make build-windows-amd64` → `dist/hexajobs.exe`
+  (PE32+ console x86-64, versi terinject + `.sha256`); macOS via
+  `make build-darwin-arm64`. Run di Windows 100% di tangan pengguna
+  (tanpa mesin Windows di tim).
+- Kriteria selesai: pengguna lapor checklist hijau (winver, Windows
+  Terminal, `--version`, `--demo` tampil); temuan baru → TROUBLESHOOTING.

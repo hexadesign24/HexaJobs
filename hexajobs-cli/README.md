@@ -19,7 +19,7 @@ make deb                  # -> dist/hexajobs-cli_v1.1_amd64.deb
 ```
 
 Versi rilis diinject via ldflags (`-X .../views.AppVersion=v1.1`, default
-`v1.0` saat build manual). Cek dengan `hexajobs --version`. Paket `.deb`
+`v1.1` saat build manual). Cek dengan `hexajobs --version`. Paket `.deb`
 menginstal ke `/usr/bin/hexajobs`; script instal memakai `~/.local/bin`
 kecuali flag `--system`.
 

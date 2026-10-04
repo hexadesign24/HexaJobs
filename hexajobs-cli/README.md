@@ -59,7 +59,9 @@ keluar cepat dengan pesan yang jelas. Navigasi: `Tab` menu/konten,
 `S` simpan, `B`/`Esc` kembali, `Ctrl+C` keluar. Lengkapnya:
 [panduan TUI](docs/TUI.md).
 
-Windows: `go build -o bin/hexajobs.exe ./cmd/hexajobs`, lalu
+Windows (tanpa Go): unduh `.exe` dari Releases lalu ikut
+[panduan Windows](INSTALL.md#windows-amd64--instalasi-manual-5-langkah).
+Dari source: `go build -o bin/hexajobs.exe ./cmd/hexajobs`, lalu
 `bin\hexajobs.exe --demo` di Windows Terminal.
 
 ## Konfigurasi singkat

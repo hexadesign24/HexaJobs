@@ -1,0 +1,18 @@
+{
+  "tasks": [
+    {
+      "id": "example-solidity-bounty",
+      "title": "Example Solidity testing bounty",
+      "project": "Example Protocol",
+      "kind": "bounty",
+      "url": "https://example.com/bounty",
+      "description": "Example schema only. Replace with verified curated source data.",
+      "region": "Worldwide",
+      "skills": ["solidity", "ethereum"],
+      "created_at": "2026-01-01T00:00:00Z",
+      "reward": {"amount": 250, "currency": "USD", "guaranteed": true},
+      "audit": {"status": "unknown"},
+      "requires_deposit": false
+    }
+  ]
+}

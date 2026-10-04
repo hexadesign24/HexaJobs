@@ -1,0 +1,12 @@
+{
+  "workers": 4,
+  "http_timeout_seconds": 15,
+  "circuit_failures": 3,
+  "circuit_cooldown_seconds": 60,
+  "adzuna_country": "gb",
+  "hn_max_comments": 100,
+  "skills": ["go", "sql", "docker"],
+  "profile_text": "Backend engineer building Go services and data pipelines",
+  "target_hourly_usd": 30,
+  "forum_feed_urls": []
+}

@@ -1,0 +1,56 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	"os"
+
+	tea "github.com/charmbracelet/bubbletea"
+	"hexajobs.dev/hexajobs-cli/internal/core"
+	"hexajobs.dev/hexajobs-cli/internal/models"
+	"hexajobs.dev/hexajobs-cli/internal/ui"
+)
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Fprintln(os.Stderr, "hexajobs:", err)
+		os.Exit(1)
+	}
+}
+
+func run() error {
+	demo := flag.Bool("demo", false, "try the interface with offline example listings")
+	version := flag.Bool("version", false, "print version")
+	config := flag.String("config", "", "engine configuration path (default ~/.config/hexajobs/config.json)")
+	flag.Parse()
+	if *version {
+		fmt.Println("hexajobs.dev v1.0")
+		return nil
+	}
+	var engine models.EngineContract
+	options := []ui.Option{ui.WithSponsorURL(os.Getenv("HEXAJOBS_SPONSOR_URL"))}
+	if *demo {
+		engine = ui.DemoEngine{}
+		options = append(options, ui.WithDemo())
+	} else {
+		options = append(options, ui.WithServices(ui.Services{Bootstrap: func() (models.EngineContract, error) {
+			cfg, err := core.LoadConfig(*config)
+			if err != nil {
+				return nil, err
+			}
+			return core.NewEngine(cfg, core.Options{})
+		}}))
+	}
+	// Configuration, engine creation, explicit purge, and UI preferences are all
+	// loaded by the model's Init command, outside the rendering/event loop.
+	model := ui.NewModel(engine, options...)
+	defer model.Close()
+	final, err := tea.NewProgram(model, tea.WithAltScreen(), tea.WithFPS(30)).Run()
+	if err != nil {
+		return err
+	}
+	if result, ok := final.(ui.Model); ok {
+		return result.FatalErr
+	}
+	return nil
+}

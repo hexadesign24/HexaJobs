@@ -27,13 +27,15 @@ Verifikasi checksum: `shasum -a 256 -c dist/hexajobs-darwin-arm64.sha256`.
 
 ```sh
 make build-linux-amd64
-./dist/hexajobs-linux-amd64 --version
-./dist/hexajobs-linux-amd64 --demo
+./bin/hexajobs-linux-amd64 --version
+./bin/hexajobs-linux-amd64 --demo
 ```
 
 Pindahkan biner ke direktori di `PATH` Anda, misalnya
 `~/.local/bin/hexajobs`, lalu `chmod +x` bila diperlukan.
-Verifikasi checksum: `sha256sum -c dist/hexajobs-linux-amd64.sha256`.
+Verifikasi checksum: `sha256sum -c bin/hexajobs-linux-amd64.sha256`.
+Untuk instalasi lengkap (.deb, npm, PATH otomatis), lihat
+[docs/INSTALL.md](docs/INSTALL.md).
 
 ## Windows (AMD64) — Instalasi Manual 5 Langkah
 
@@ -148,7 +150,7 @@ hexajobs.exe --demo
 
 Hasil yang diharapkan:
 
-- `--version` mencetak versi, misalnya `hexajobs.dev v1.0`.
+- `--version` mencetak versi, misalnya `hexajobs.dev v1.1.1`.
 - `--demo` membuka TUI dengan contoh bertanda DEMO. Keluar
   dengan `Ctrl+C` atau `q` dari menu Dashboard.
 

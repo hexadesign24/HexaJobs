@@ -13,7 +13,7 @@ skrip `*.ps1`/`*.bat`/`*.cmd`.
 - [ ] Terminal: _(mis. Windows Terminal 1.21 / PowerShell 5.1 / PowerShell 7.4)_
 - [ ] Ukuran terminal: _(mis. 100×30; minimum 80×24)_
 - [ ] Sumber biner: _(rilis `hexajobs.exe` versi ___ / build dari source Go ___)_
-- [ ] Versi biner (`hexajobs.exe --version`): _(mis. `hexajobs.dev v1.0`)_
+- [ ] Versi biner (`hexajobs.exe --version`): _(mis. `hexajobs.dev v1.1.1`)_
 
 ## Verifikasi Build / Unduhan
 

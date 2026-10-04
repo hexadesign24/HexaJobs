@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -9,6 +10,7 @@ import (
 	"hexajobs.dev/hexajobs-cli/internal/core"
 	"hexajobs.dev/hexajobs-cli/internal/models"
 	"hexajobs.dev/hexajobs-cli/internal/ui"
+	"hexajobs.dev/hexajobs-cli/internal/ui/views"
 )
 
 func main() {
@@ -24,8 +26,16 @@ func run() error {
 	config := flag.String("config", "", "engine configuration path (default ~/.config/hexajobs/config.json)")
 	flag.Parse()
 	if *version {
-		fmt.Println("hexajobs.dev v1.0")
+		fmt.Println("hexajobs.dev " + views.AppVersion)
 		return nil
+	}
+	// The TUI needs a real terminal. Without one Bubble Tea fails with
+	// "could not open a new TTY", so report it in plain language instead.
+	// (/dev/null is a char device too, so probe /dev/tty directly.)
+	if tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0); err != nil {
+		return errors.New("need an interactive terminal (no /dev/tty): run inside a terminal emulator, not via pipe/redirect; --version works anywhere")
+	} else {
+		_ = tty.Close()
 	}
 	var engine models.EngineContract
 	options := []ui.Option{ui.WithSponsorURL(os.Getenv("HEXAJOBS_SPONSOR_URL"))}

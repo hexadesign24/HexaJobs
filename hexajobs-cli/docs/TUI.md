@@ -74,4 +74,10 @@ go vet ./...
 
 Test mencakup rules ScamShield, batas ghosting, struktur pitch, escape-sequence sanitization, argumen launcher Windows/Linux/macOS tanpa membuka browser, append history, preferences, command async, partial results, stale responses, navigasi keyboard, serta clipping semua view dalam tiga bahasa. Backend tests tetap berjalan tanpa modifikasi.
 
+## Kompatibilitas terminal (hasil uji v1.1.1)
+
+- Ukuran teruji otomatis: 80×24, 100×30, 120×40 (`TestAllViewsStayWithinTerminalBounds`, 3 bahasa). Di bawah 80 kolom sidebar bergantian via Tab; di bawah 50×16 tampil permintaan resize. Uji visual manual di terminal asli tetap disarankan tiap rilis.
+- `TERM=dumb` dan `NO_COLOR=1`: seluruh test render lolos — Lip Gloss degradasi otomatis tanpa warna; layout dan clipping tidak rusak. Batas dukungan: warna penuh butuh terminal 256-warna/truecolor.
+- Wajib terminal interaktif (`/dev/tty`). Tanpa TTY (pipe/redirect), CLI keluar cepat dengan pesan `need an interactive terminal...`; `--version` tetap bisa di mana saja.
+
 Referensi: [Bubble Tea v1](https://github.com/charmbracelet/bubbletea/tree/v1.3.10), [Bubbles](https://github.com/charmbracelet/bubbles/tree/v0.21.0), [Lip Gloss](https://github.com/charmbracelet/lipgloss/tree/v1.1.0).

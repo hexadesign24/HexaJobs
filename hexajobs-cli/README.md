@@ -34,7 +34,14 @@ hexajobs --demo
 Flag `--allow-scripts` wajib karena npm 10+ memblokir postinstall secara
 default; tanpanya binary tidak diunduh. Postinstall mengunduh binary Linux
 dari GitHub Releases (`v1.1.0`), atau build dari source bila Go + Make
-tersedia. Tanpa registry (belum publish), instal dari tarball lokal:
+tersedia. Selama repo masih private, sediakan token baca repo saat instal:
+
+```sh
+GITHUB_TOKEN=<token> npm install -g hexajobs-cli --allow-scripts=hexajobs-cli
+```
+
+(Repo publik tidak butuh token.) Tanpa registry (belum publish), instal
+dari tarball lokal:
 
 ```sh
 npm pack               # -> hexajobs-cli-1.1.0.tgz
